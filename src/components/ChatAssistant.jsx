@@ -19,7 +19,7 @@ const ChatAssistant = () => {
     if (isOpen) scrollToBottom();
   }, [messages, isOpen]);
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -29,9 +29,11 @@ const ChatAssistant = () => {
     setIsLoading(true);
 
     try {
-      // 🚀 DYNAMIC API URL: Uses environment variable in production, localhost in development
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       
+      // DEBUG: This will print the exact URL it is trying to talk to in your browser console
+      console.log("Aegis Core attempting connection to:", API_URL); 
+
       const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,7 +45,12 @@ const ChatAssistant = () => {
         setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
       }
     } catch (error) {
-      setMessages((prev) => [...prev, { role: 'assistant', content: "ERR: Connection to AI core severed. Please contact via email." }]);
+      // DEBUG: This forces the actual network error to show up in the chat UI!
+      console.error("Network Error Details:", error);
+      setMessages((prev) => [...prev, { 
+        role: 'assistant', 
+        content: `SYS_ERR: ${error.message}. Check browser console (F12) for detailed logs.` 
+      }]);
     } finally {
       setIsLoading(false);
     }
