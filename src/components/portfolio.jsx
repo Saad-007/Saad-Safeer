@@ -4,7 +4,7 @@ import { FiArrowUpRight, FiX } from 'react-icons/fi';
 import image1 from "../assets/image/shopplus.png";
 import image2 from "../assets/image/resume.png";
 import image3 from "../assets/image/Teamsyn.png";
-
+import ChatAssistant from './ChatAssistant'; // Adjust path if needed
 // ---------------------------------------------------------
 // ANIMATION VARIANTS (The Secret to Premium Feel)
 // ---------------------------------------------------------
@@ -275,6 +275,7 @@ export default function Portfolio() {
       <Projects />
       <Capabilities />
       <Contact />
+      <ChatAssistant />
     </div>
   );
 }
