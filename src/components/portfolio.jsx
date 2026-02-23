@@ -178,8 +178,8 @@ const Capabilities = () => (
                <h3 className="font-mono text-xs uppercase tracking-widest font-bold text-[#111]">Professional Ledger</h3>
                <div className="w-2 h-2 rounded-full bg-[#111] animate-pulse" />
             </div>
-            <ExperienceItem role="Web Dev Intern" company="Plutus21" date="2026" />
-            <ExperienceItem role="Technical Operator" company="DEN & Ziauddin Hospital" date="2025 - Pres." />
+            <ExperienceItem role="Web Dev Intern" company="DEN" date="2025" />
+            <ExperienceItem role="Frontend Dev Intern" company="Ziauddin Hospital" date="2025." />
           </div>
           <div className="mt-16 font-serif italic text-2xl text-[#555] border-t-2 border-[#111] pt-6">
             "Bridging academic rigor with industry execution."
