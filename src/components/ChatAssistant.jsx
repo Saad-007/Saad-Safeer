@@ -4,6 +4,7 @@ import { FiMessageSquare, FiX, FiSend } from 'react-icons/fi';
 
 const ChatAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "SYSTEM ONLINE. I am Saad's AI. Ask about his MERN stack architecture, technical experience, or projects." }
   ]);
@@ -19,7 +20,7 @@ const ChatAssistant = () => {
     if (isOpen) scrollToBottom();
   }, [messages, isOpen]);
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -31,9 +32,6 @@ const handleSubmit = async (e) => {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       
-      // DEBUG: This will print the exact URL it is trying to talk to in your browser console
-      console.log("Aegis Core attempting connection to:", API_URL); 
-
       const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,7 +43,6 @@ const handleSubmit = async (e) => {
         setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
       }
     } catch (error) {
-      // DEBUG: This forces the actual network error to show up in the chat UI!
       console.error("Network Error Details:", error);
       setMessages((prev) => [...prev, { 
         role: 'assistant', 
@@ -57,7 +54,50 @@ const handleSubmit = async (e) => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[300] font-sans cursor-auto">
+    <div className="fixed bottom-6 right-6 z-[300] font-sans cursor-auto flex items-end justify-end gap-4">
+      
+      {/* -------------------------------------------------- */}
+      {/* DIGITAL TWIN STATUS BADGE (Only shows when closed) */}
+      {/* -------------------------------------------------- */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 20, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 10, scale: 0.95 }}
+            transition={{ delay: 1.5, duration: 0.5, type: "spring" }} 
+            className="mb-4 mr-2 hidden md:flex items-center cursor-pointer group"
+            onClick={() => setIsOpen(true)} // User can click the text to open chat
+          >
+            {/* The Badge Container */}
+            <div className="bg-[#F2F2EC] border-2 border-[#111] px-5 py-3 shadow-[4px_4px_0px_0px_rgba(17,17,17,1)] flex items-center gap-4 relative hover:-translate-y-1 transition-transform duration-300">
+              
+              {/* Decorative Arrow pointing to button */}
+              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#F2F2EC] border-t-2 border-r-2 border-[#111] rotate-45 transform"></div>
+
+              {/* Status Indicator (Pulsing Radar) */}
+              <div className="relative flex h-3 w-3 items-center justify-center">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-600 border border-[#111]"></span>
+              </div>
+
+              {/* Text Content */}
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-[#111] leading-none">
+                  Digital Twin // Online
+                </span>
+                <span className="font-serif italic text-sm text-[#333] leading-none whitespace-nowrap">
+                  I hold my entire professional memory.
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* -------------------------------------------------- */}
+      {/* MAIN CHAT WINDOW                                   */}
+      {/* -------------------------------------------------- */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -126,12 +166,16 @@ const handleSubmit = async (e) => {
       </AnimatePresence>
 
       {/* Floating Toggle Button */}
-      <button 
+      <motion.button 
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-16 h-16 rounded-full border-4 border-[#111] shadow-[4px_4px_0px_0px_rgba(17,17,17,1)] flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-[6px_6px_0px_0px_rgba(17,17,17,1)] z-[300] ${isOpen ? 'bg-white text-[#111]' : 'bg-[#111] text-[#F2F2EC]'}`}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className={`w-16 h-16 rounded-full border-4 border-[#111] shadow-[4px_4px_0px_0px_rgba(17,17,17,1)] flex items-center justify-center transition-colors duration-300 z-[300] relative overflow-hidden ${isOpen ? 'bg-white text-[#111]' : 'bg-[#111] text-[#F2F2EC]'}`}
       >
-        {isOpen ? <FiX className="text-3xl" /> : <FiMessageSquare className="text-3xl" />}
-      </button>
+        {isOpen ? <FiX className="text-3xl relative z-10" /> : <FiMessageSquare className="text-3xl relative z-10" />}
+      </motion.button>
     </div>
   );
 };
