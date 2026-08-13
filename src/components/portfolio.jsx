@@ -7,6 +7,7 @@ import imageSocial from "../assets/image/social-genius.png";
 import imageTeamSync from "../assets/image/Teamsyn.png";
 import imageResume from "../assets/image/resume.png";
 import imageShopPlus from "../assets/image/shopplus.png";
+import imageApplyMax from "../assets/image/applymax.png";
 import ChatAssistant from './ChatAssistant';
 
 // ---------------------------------------------------------
@@ -30,22 +31,30 @@ const fadeUp = {
 const portfolioProjects = [
   {
     id: 1,
-    title: "BodyMax",
-    description: "AI-powered physique assessment web application utilizing vision models for personalized fitness tracking.",
-    tags: ['React', 'Vision AI', 'Node.js'],
-    link: "#",
-    image: imageBodyMax
-  },
-  {
-    id: 2,
     title: "Social Genius",
     description: "A dedicated iOS application engineered to streamline social features and client engagement.",
     tags: ['iOS', 'React Native'],
-    link: "#",
+    link: "https://apps.apple.com/us/app/social-genius-text-analyzer/id6776793403", // TODO: replace with real live link
     image: imageSocial
   },
   {
+    id: 2,
+    title: "ApplyMax",
+    description: "AI career copilot that reads your resume and a target job listing, flags mismatches, scores ATS compatibility, and generates an improved resume and cover letter.",
+    tags: ['MERN Stack', 'OpenAI API', 'NLP'],
+    link: "https://www.applymax.online/", // TODO: replace with real live link
+    image: imageApplyMax
+  },
+  {
     id: 3,
+    title: "BodyMax",
+    description: "AI-powered physique assessment web application utilizing vision models for personalized fitness tracking.",
+    tags: ['React', 'Vision AI', 'Node.js'],
+    link: "https://bodymaxx.online/", // TODO: replace with real live link
+    image: imageBodyMax
+  },
+  {
+    id: 4,
     title: "TeamSync",
     description: "Collaborative whiteboard with real-time video meetings, powered by OpenAI & Whisper for automated transcriptions.",
     tags: ['React', 'Socket.io', 'OpenAI'],
@@ -53,7 +62,7 @@ const portfolioProjects = [
     image: imageTeamSync
   },
   {
-    id: 4,
+    id: 5,
     title: "ResumeAI",
     description: "An AI-powered resume builder converting user prompts into formatted, downloadable PDFs in seconds.",
     tags: ['MERN Stack', 'Vite', 'OpenAI API'],
@@ -61,7 +70,7 @@ const portfolioProjects = [
     image: imageResume
   },
   {
-    id: 5,
+    id: 6,
     title: "ShopPlus",
     description: "Full-stack e-commerce architecture with seamless checkout flows and dynamic inventory management.",
     tags: ['React', 'Node.js', 'Express'],
@@ -69,11 +78,20 @@ const portfolioProjects = [
     image: imageShopPlus
   }
 ];
-
+// ---------------------------------------------------------
+// METRICS DATA (Real, from shipped work — no inflated numbers)
+// ---------------------------------------------------------
+const metrics = [
+  { value: "6", label: "Products shipped & deployed", context: "1 iOS app, 2 web apps, 3 websites" },
+  { value: "35%", label: "ATS keyword-match improvement", context: "ResumeAI, beta testing" },
+  { value: "6", label: "Person remote Agile team", context: "Digital Empowerment Network internship" },
+  { value: "60+", label: "Resumes generated in week 1", context: "ResumeAI post-launch" },
+];
 // ---------------------------------------------------------
 // NAV CONFIG + ACTIVE SECTION TRACKER
 // ---------------------------------------------------------
 const NAV_LINKS = [
+  { id: 'about', label: 'About' },
   { id: 'projects', label: 'Index' },
   { id: 'capabilities', label: 'Capabilities' },
   { id: 'contact', label: 'Contact' },
@@ -129,8 +147,8 @@ const Header = () => {
         {/* Desktop nav */}
         <div className="hidden md:flex gap-8 text-xs font-mono uppercase tracking-[0.1em] text-[#111] font-bold">
           {NAV_LINKS.map(({ id, label }) => (
-            <a
-              key={id}
+            
+             <a key={id}
               href={`#${id}`}
               aria-current={activeId === id ? "true" : undefined}
               className={`px-3 py-1 transition-colors ${FOCUS_RING} ${
@@ -240,6 +258,64 @@ const Hero = () => {
 };
 
 // ---------------------------------------------------------
+// 3. ABOUT / ETHOS SECTION (NEW)
+// ---------------------------------------------------------
+const About = () => (
+  <section id="about" className="py-32 px-6 max-w-7xl mx-auto border-t-2 border-[#111]">
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={fadeUp}
+      className="border-b-4 border-[#111] pb-6 mb-16 flex justify-between items-end"
+    >
+      <h2 className="text-5xl md:text-7xl font-serif text-[#111] tracking-tighter uppercase">Approach</h2>
+      <span className="font-mono text-sm font-bold">[02]</span>
+    </motion.div>
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        className="md:col-span-7"
+      >
+        <p className="text-2xl md:text-4xl font-serif leading-tight text-[#111] mb-8">
+          I work across the full stack — frontend, backend, and increasingly, the AI
+          layer in between.
+        </p>
+        <p className="text-base md:text-lg text-[#555] leading-relaxed max-w-2xl font-medium">
+          Most of my recent work involves integrating AI into products where it
+          genuinely improves the outcome: emotional-risk analysis in a mobile
+          messaging app, resume scoring against real job descriptions, image
+          analysis for fitness tracking. I care about the parts that don't show
+          up in a demo — authentication, error handling, deployment, and whether
+          the thing still works after a week of real use. I'm currently finishing
+          my degree in Computer Science, and I take on freelance and agency work
+          alongside it.
+        </p>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        transition={{ delay: 0.15 }}
+        className="md:col-span-5 border-2 border-[#111] p-8 bg-[#111] text-[#F2F2EC] shadow-[8px_8px_0px_0px_rgba(17,17,17,0.15)]"
+      >
+        <h3 className="font-mono text-xs uppercase tracking-widest font-bold mb-8 border-b-2 border-[#F2F2EC]/30 pb-4">
+          How I Work
+        </h3>
+        <ul className="space-y-6 font-serif text-xl italic">
+          <li className="border-b border-[#F2F2EC]/10 pb-4">01. Ship working software, not demos.</li>
+          <li className="border-b border-[#F2F2EC]/10 pb-4">02. Use AI where it solves a real problem — not by default.</li>
+          <li>03. Keep data on-device when a client's use case calls for it.</li>
+        </ul>
+      </motion.div>
+    </div>
+  </section>
+);
+// ---------------------------------------------------------
 // INFINITE MARQUEE
 // ---------------------------------------------------------
 const Marquee = () => {
@@ -262,7 +338,7 @@ const Marquee = () => {
 };
 
 // ---------------------------------------------------------
-// 3. PROJECTS SECTION (With 'See More' Logic)
+// 4. PROJECTS SECTION (With 'See More' Logic)
 // ---------------------------------------------------------
 const Projects = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -293,7 +369,7 @@ const Projects = () => {
     <section id="projects" className="py-32 px-6 max-w-7xl mx-auto">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp} className="border-b-4 border-[#111] pb-6 mb-16 flex justify-between items-end">
         <h2 className="text-5xl md:text-7xl font-serif text-[#111] tracking-tighter uppercase">Selected Works</h2>
-        <span className="font-mono text-sm font-bold">[02]</span>
+        <span className="font-mono text-sm font-bold">[03]</span>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
@@ -397,7 +473,49 @@ const Projects = () => {
 };
 
 // ---------------------------------------------------------
-// 4. CAPABILITIES (Blueprint & Inverted Ticket Layout)
+// 5. METRICS SECTION (NEW — real, quantified proof)
+// ---------------------------------------------------------
+const Metrics = () => (
+  <section className="py-24 bg-[#111] text-[#F2F2EC] border-y-2 border-[#111]">
+    <div className="max-w-7xl mx-auto px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        className="mb-16 flex justify-between items-end border-b-2 border-[#F2F2EC]/30 pb-6"
+      >
+        <h2 className="text-4xl md:text-6xl font-serif tracking-tighter uppercase">By the Numbers</h2>
+        <span className="font-mono text-sm font-bold bg-[#F2F2EC] text-[#111] px-2 py-1">[04]</span>
+      </motion.div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        {metrics.map((m, i) => (
+          <motion.div
+            key={m.label}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            transition={{ delay: i * 0.1 }}
+            className="border-2 border-[#F2F2EC]/20 p-6 md:p-8 hover:border-[#F2F2EC] hover:bg-[#F2F2EC]/5 transition-colors duration-300"
+          >
+            <p className="text-4xl md:text-5xl font-serif italic mb-4">{m.value}</p>
+            <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-[#F2F2EC]/70 leading-relaxed mb-3">
+              {m.label}
+            </p>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-[#F2F2EC]/40 border-t border-[#F2F2EC]/10 pt-3">
+              {m.context}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// ---------------------------------------------------------
+// 6. CAPABILITIES (Blueprint & Inverted Ticket Layout)
 // ---------------------------------------------------------
 const Capabilities = () => (
   <section id="capabilities" className="py-32 bg-[#111] text-[#F2F2EC] relative overflow-hidden border-y-2 border-[#111]">
@@ -407,7 +525,7 @@ const Capabilities = () => (
     <div className="max-w-7xl mx-auto px-6 relative z-10">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="border-b-2 border-[#F2F2EC]/30 pb-6 mb-16 flex justify-between items-end">
         <h2 className="text-5xl md:text-7xl font-serif tracking-tighter uppercase">Capabilities</h2>
-        <span className="font-mono text-sm font-bold bg-[#F2F2EC] text-[#111] px-2 py-1">[03]</span>
+        <span className="font-mono text-sm font-bold bg-[#F2F2EC] text-[#111] px-2 py-1">[05]</span>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
@@ -415,8 +533,10 @@ const Capabilities = () => (
         {/* Left Column: Tech Stack (Interactive Ledgers) */}
         <div className="md:col-span-7 space-y-0 border-t-2 border-[#F2F2EC]/30 bg-[#111]/80 backdrop-blur-sm">
           <LedgerRow title="Frontend Architecture" details="React, React Native, Tailwind CSS, Framer Motion" />
-          <LedgerRow title="Backend & DB Systems" details="Node.js, Express, MongoDB, Firebase" />
-          <LedgerRow title="AI Systems Engineering" details="Vision Models, RAG, Whisper, Ollama" />
+          <LedgerRow title="Backend & DB Systems" details="Node.js, Express, MongoDB, Firebase, Supabase, MySQL" />
+          <LedgerRow title="AI Systems Engineering" details="OpenAI GPT-4, Vision Models, Whisper STT, Ollama (Mistral)" />
+          <LedgerRow title="Real-Time & Media" details="Socket.io, Agora SDK, WebSockets" />
+          <LedgerRow title="DevOps & Deployment" details="Vercel, Railway, Render, EAS, Git/GitHub, CI/CD" />
           <LedgerRow title="Agency Operations" details="Startup Scaling, Video Editing, Automation" />
         </div>
 
@@ -442,13 +562,13 @@ const Capabilities = () => (
 );
 
 // ---------------------------------------------------------
-// 5. CONTACT SECTION
+// 7. CONTACT SECTION
 // ---------------------------------------------------------
 const Contact = () => (
   <section id="contact" className="py-40 px-6 max-w-7xl mx-auto">
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center flex flex-col items-center">
       <div className="font-mono text-xs uppercase tracking-widest border-2 border-[#111] px-4 py-2 mb-12 bg-white font-bold">
-        [04] Final Operations
+        [06] Final Operations
       </div>
       <h2 className="text-[clamp(3rem,12vw,8rem)] font-serif tracking-tighter text-[#111] uppercase leading-none hover:italic transition-all duration-500">
         Initiate.
@@ -461,7 +581,7 @@ const Contact = () => (
 );
 
 // ---------------------------------------------------------
-// 6. FOOTER
+// 8. FOOTER
 // ---------------------------------------------------------
 const Footer = () => (
   <footer className="border-t-2 border-[#111] px-6 py-8 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-xs uppercase tracking-widest text-[#111] font-bold">
@@ -494,7 +614,7 @@ const ProjectCard = ({ title, description, tags, link, image, onImageClick }) =>
     <div className="p-8 flex-1 flex flex-col">
       <div className="flex justify-between items-start mb-6 border-b-2 border-[#111] pb-4">
         <h3 className="text-4xl font-serif text-[#111] tracking-tighter uppercase">{title}</h3>
-        <a href={link} aria-label={`Open ${title} project`} className={`text-[#111] hover:bg-[#111] hover:text-[#F2F2EC] p-3 border-2 border-[#111] transition-colors z-20 shadow-[4px_4px_0px_0px_rgba(17,17,17,1)] ${FOCUS_RING}`}>
+        <a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Open ${title} project`} className={`text-[#111] hover:bg-[#111] hover:text-[#F2F2EC] p-3 border-2 border-[#111] transition-colors z-20 shadow-[4px_4px_0px_0px_rgba(17,17,17,1)] ${FOCUS_RING}`}>
           <FiArrowUpRight className="text-xl" />
         </a>
       </div>
@@ -538,8 +658,10 @@ export default function Portfolio() {
       <Header />
       <main>
         <Hero />
+        <About />
         <Marquee />
         <Projects />
+        <Metrics />
         <Capabilities />
         <Contact />
       </main>
