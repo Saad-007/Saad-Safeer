@@ -9,7 +9,7 @@ import imageResume from "../assets/image/resume.png";
 import imageShopPlus from "../assets/image/shopplus.png";
 import imageApplyMax from "../assets/image/applymax.png";
 import ChatAssistant from './ChatAssistant';
-
+import imageSuperSit from "../assets/image/supersit.png"; // ADD THIS LINE
 // ---------------------------------------------------------
 // ANIMATION VARIANTS
 // ---------------------------------------------------------
@@ -29,6 +29,14 @@ const fadeUp = {
 // PROJECT DATA (All projects included)
 // ---------------------------------------------------------
 const portfolioProjects = [
+  {
+  id: 0,
+  title: "SuperSit",
+  description: "A live, revenue-generating SaaS product — a cross-platform desktop app that detects poor posture in real-time using on-device AI vision. Engineered the full stack: auth, subscription billing, and an automated CI/CD pipeline shipping signed installers with silent auto-updates.",
+  tags: ['Electron.js', 'React', 'MediaPipe AI', 'Supabase'],
+  link: "https://www.supersit.app/", // TODO: add live/download link
+  image: imageSuperSit
+},
   {
     id: 1,
     title: "Social Genius",
